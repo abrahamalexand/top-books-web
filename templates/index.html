@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}My Favorite Books{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>My Favorite Books</h1>
+        <div class="card-list">
+            {% for book in all_books %}
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="{{ book.img_url }}" alt="Book 1">
+                    </div>
+                    <div class="flip-card-back">
+                        <h2 class="card-title">{{ book.title }} <span class="release-year">({{ book.year }})</span></h2>
+                        <p class="card-author">{{ book.author }}</p>
+                        <p class="card-description">{{ book.description|safe }}</p>
+                        <p class="card-rating">{{ book.rating }}<i class="fas fa-star"></i></p>
+                        <div class="card-buttons">
+                            <a href="{{ url_for('edit', id=book.id) }}" class="edit-btn">Edit</a>
+                            <a href="{{ url_for('delete', id=book.id) }}" class="delete-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{{ url_for('add') }}" class="add-book-btn">Add Book</a>
+{% endblock %}
